@@ -86,7 +86,7 @@ int get_branch_offset(Instruction instruction) {
     int imm3 = extract(instruction.sbtype.imm7, 0, 6);
     int imm4 = extract(instruction.sbtype.imm7, 6, 7);
     int imm = (imm2 + 16*imm3 + 512*imm1 + 1024*imm4);
-    return sign_extend_number(imm, 11)*2; 
+    return sign_extend_number(imm<<1, 12); 
 }
 
 /* Returns the number of bytes (from the current PC) to the jump label using the given
@@ -97,7 +97,7 @@ int get_jump_offset(Instruction instruction) {
     int imm3 = extract(instruction.ujtype.imm, 9, 19);
     int imm4 = extract(instruction.ujtype.imm, 19, 20);
     int imm = (imm3 + 1024*imm2 + 2048*imm1 + 524288*imm4);
-    return sign_extend_number(imm, 20)*2;
+    return sign_extend_number(imm<<1, 21);
 }
 
 int get_store_offset(Instruction instruction) {
