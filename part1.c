@@ -1,6 +1,5 @@
 #include <stdio.h> // for stderr
 #include <stdlib.h> // for exit()
-#include <math.h>
 #include "types.h"
 #include "utils.h"
 

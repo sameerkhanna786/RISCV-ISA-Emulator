@@ -2,7 +2,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <inttypes.h>
-#include <math.h>
 
 /* From stack overflow post number 10090326 */
 int extract(int value, int begin, int end)
@@ -85,8 +84,8 @@ int get_branch_offset(Instruction instruction) {
     int imm2 = extract(instruction.sbtype.imm5, 1, 5);
     int imm3 = extract(instruction.sbtype.imm7, 0, 6);
     int imm4 = extract(instruction.sbtype.imm7, 6, 7);
-    int imm = (imm2 + 16*imm3 + 512*imm1 + 1024*imm4)*2;
-    return sign_extend_number(imm, 12); 
+    int imm = (imm2 + 16*imm3 + 512*imm1 + 1024*imm4);
+    return sign_extend_number(imm, 11)*2; 
 }
 
 /* Returns the number of bytes (from the current PC) to the jump label using the given
