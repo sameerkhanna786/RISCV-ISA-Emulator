@@ -33,7 +33,7 @@ Instruction parse_instruction(uint32_t instruction_bits) {
     for (int i = 0; i < 32; i++){
         printf("%d", extract(instruction_bits, i, i+1));
     }
-    printf("\n");
+    printf("  ");
     /* YOUR CODE HERE */
     Instruction instruction;
 
