@@ -81,12 +81,12 @@ Instruction parse_instruction(uint32_t instruction_bits) {
 /* Return the number of bytes (from the current PC) to the branch label using the given
  * branch instruction */
 int get_branch_offset(Instruction instruction) {
-    int imm1 = extract(instruction.sbtype.imm5, 0, 0);
+    int imm1 = extract(instruction.sbtype.imm5, 0, 1);
     int imm2 = extract(instruction.sbtype.imm5, 1, 5);
     int imm3 = extract(instruction.sbtype.imm7, 0, 6);
     int imm4 = extract(instruction.sbtype.imm7, 6, 7);
-    int imm = (imm2 + 16*imm3 + 512*imm1 + 1024*imm4);
-    return sign_extend_number(imm<<1, 12); 
+    int imm = (imm2 + 16*imm3 + 1024*imm1 + 2048*imm4)*2;
+    return sign_extend_number(imm, 13); 
 }
 
 /* Returns the number of bytes (from the current PC) to the jump label using the given
