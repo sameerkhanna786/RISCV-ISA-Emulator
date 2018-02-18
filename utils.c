@@ -13,13 +13,12 @@ int extract(int value, int begin, int end)
 /* Sign extends the given field to a 32-bit integer where field is
  * interpreted an n-bit integer. */ 
 int sign_extend_number( unsigned int field, unsigned int n) {
-    int temp = (int) field;
     int a;
-    if (temp < (1<<(n-1))) {
+    if (extract(field, n-1, n) == 0) {
        a = field;
     } else {
     int value = 0;
-    for (int i = 0; i < 32-n; i++) {
+    for (int i = 0; i <= 32-n; i++) {
         value = value*2 + 1;
     }
     a = field + (value << n);
