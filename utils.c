@@ -29,6 +29,11 @@ int sign_extend_number( unsigned int field, unsigned int n) {
 /* Unpacks the 32-bit machine code instruction given into the correct
  * type within the instruction struct */ 
 Instruction parse_instruction(uint32_t instruction_bits) {
+    printf("BINARY CODE IS: ");
+    for (int i = 0; i < 32; i++){
+        printf("%d", extract(instruction_bits, i, i+1));
+    }
+    printf("\n");
     /* YOUR CODE HERE */
     Instruction instruction;
 
@@ -81,6 +86,7 @@ Instruction parse_instruction(uint32_t instruction_bits) {
 /* Return the number of bytes (from the current PC) to the branch label using the given
  * branch instruction */
 int get_branch_offset(Instruction instruction) {
+    
     int imm1 = extract(instruction.sbtype.imm5, 0, 1);
     int imm2 = extract(instruction.sbtype.imm5, 1, 5);
     int imm3 = extract(instruction.sbtype.imm7, 0, 6);
