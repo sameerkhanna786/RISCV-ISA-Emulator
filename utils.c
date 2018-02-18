@@ -4,10 +4,17 @@
 #include <inttypes.h>
 #include <math.h>
 
+/* From stack overflow post number 10090326 */
+int extract(int value, int begin, int end)
+{
+    int mask = (1 << (end - begin)) - 1;
+    return (value >> begin) & mask;
+}
+
 /* Sign extends the given field to a 32-bit integer where field is
  * interpreted an n-bit integer. */ 
 int sign_extend_number( unsigned int field, unsigned int n) {
-    int temp = field/pow(2, n-1);
+    int temp = extract(field, n-1, n);
     if (temp == 0) {
        return field;
     } else {
@@ -17,13 +24,6 @@ int sign_extend_number( unsigned int field, unsigned int n) {
     }
     return field + (value << n);
     }
-}
-
-/* From stack overflow post number 10090326 */
-int extract(int value, int begin, int end)
-{
-    int mask = (1 << (end - begin)) - 1;
-    return (value >> begin) & mask;
 }
 
 /* Unpacks the 32-bit machine code instruction given into the correct
@@ -85,7 +85,7 @@ int get_branch_offset(Instruction instruction) {
     int imm2 = extract(instruction.sbtype.imm5, 1, 5);
     int imm3 = extract(instruction.sbtype.imm7, 0, 6);
     int imm4 = extract(instruction.sbtype.imm7, 6, 7);
-    int imm = (imm2 + pow(2, 4)*imm3 + pow(2, 9)*imm1 + pow(2, 10)*imm4)*2;
+    int imm = (imm2 + 16*imm3 + 512*imm1 + 1024*imm4)*2;
     return sign_extend_number(imm, 12); 
 }
 
@@ -96,7 +96,7 @@ int get_jump_offset(Instruction instruction) {
     int imm2 = extract(instruction.ujtype.imm, 8, 9);
     int imm3 = extract(instruction.ujtype.imm, 9, 19);
     int imm4 = extract(instruction.ujtype.imm, 19, 20);
-    int imm = (imm3 + pow(2, 10)*imm2 + pow(2, 11)*imm1 + pow(2, 19)*imm4);
+    int imm = (imm3 + 1024*imm2 + 2048*imm1 + 524288*imm4);
     return sign_extend_number(imm, 20)*2;
 }
 
