@@ -18,7 +18,7 @@ int sign_extend_number( unsigned int field, unsigned int n) {
        a = field;
     } else {
     int value = 0;
-    for (int i = 0; i <= 32-n; i++) {
+    for (int i = 0; i < 32-n; i++) {
         value = value*2 + 1;
     }
     a = field + (value << n);
