@@ -1,5 +1,6 @@
 #include <stdio.h> // for stderr
 #include <stdlib.h> // for exit()
+#include <math.h>
 #include "types.h"
 #include "utils.h"
 
@@ -223,33 +224,34 @@ void write_branch(Instruction instruction) {
 }
 
 void print_lui(Instruction instruction) {
-    /* YOUR CODE HERE */
+    unsigned int a = 0;
+    printf(LUI_FORMAT, instruction.utype.rd, a + instruction.utype.imm);
 }
 
 void print_jal(Instruction instruction) {
-    /* YOUR CODE HERE */
+    printf(JAL_FORMAT, instruction.ujtype.rd, get_jump_offset(instruction));
 }
 
 void print_ecall(Instruction instruction) {
-    /* YOUR CODE HERE */
+    printf(ECALL_FORMAT);
 }
 
 void print_rtype(char *name, Instruction instruction) {
-    /* YOUR CODE HERE */
+    printf(RTYPE_FORMAT, name, instruction.rtype.rd, instruction.rtype.rs1, instruction.rtype.rs2);  
 }
 
 void print_itype_except_load(char *name, Instruction instruction, int imm) {
-    /* YOUR CODE HERE */
+    printf(ITYPE_FORMAT, name, instruction.itype.rd, instruction.itype.rs1, sign_extend_number(imm, 12));  
 }
 
 void print_load(char *name, Instruction instruction) {
-    /* YOUR CODE HERE */
+    printf(MEM_FORMAT, name, instruction.itype.rd, sign_extend_number(instruction.itype.imm, 12), instruction.itype.rs1); 
 }
 
 void print_store(char *name, Instruction instruction) {
-    /* YOUR CODE HERE */
+    printf(MEM_FORMAT, name, instruction.stype.rs2, get_store_offset(instruction), instruction.stype.rs1); 
 }
 
 void print_branch(char *name, Instruction instruction) {
-    /* YOUR CODE HERE */
+    printf(BRANCH_FORMAT, name, instruction.sbtype.rs1, instruction.sbtype.rs2, get_branch_offset(instruction));
 }

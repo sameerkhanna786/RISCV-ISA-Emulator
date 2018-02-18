@@ -4,7 +4,7 @@ CUNIT := -L/home/ff/cs61c/cunit/install/lib -I/home/ff/cs61c/cunit/install/inclu
 CFLAGS := -g -std=gnu99 -Wall
 
 
-ASM_TESTS := simple multiply random
+ASM_TESTS := simple multiply random mytests mytest random_asm
 
 all: riscv part1 part2
 	@echo "=============All tests finished============="
