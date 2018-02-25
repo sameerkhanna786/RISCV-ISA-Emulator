@@ -117,7 +117,7 @@ void execute_rtype(Instruction instruction, Processor *processor) {
 		    break;
                 case 0x1:
                     // DIV
-		    processor->R[instruction.rtype.rd] = (processor->R[instruction.rtype.rs1] / processor->R[instruction.rtype.rs2]);
+		    processor->R[instruction.rtype.rd] = (((int64_t)processor->R[instruction.rtype.rs1]) / ((int64_t)processor->R[instruction.rtype.rs2]));
                     processor->PC += 4;
 		    break;
                 default:
@@ -153,8 +153,8 @@ void execute_rtype(Instruction instruction, Processor *processor) {
                     break;
                 case 0x1:
                     // REM
-		    processor->R[instruction.rtype.rd] = (processor->R[instruction.rtype.rs1] % processor->R[instruction.rtype.rs2]);
-		    processor->PC += 4;
+		    processor->R[instruction.rtype.rd] = (((int64_t)processor->R[instruction.rtype.rs1]) % ((int64_t)processor->R[instruction.rtype.rs2]));
+                    processor->PC += 4;
                     break;
                 default:
                     handle_invalid_instruction(instruction);
