@@ -135,7 +135,7 @@ void execute_rtype(Instruction instruction, Processor *processor) {
 		    break;     
                 case 0x20:
                     // SRA
-		    processor->R[instruction.rtype.rd] = sign_extend_number((processor->R[instruction.rtype.rs1] >> processor->R[instruction.rtype.rs2]) , 32 - processor->R[instruction.rtype.rs1]);
+		    processor->R[instruction.rtype.rd] = sign_extend_number((processor->R[instruction.rtype.rs1] >> processor->R[instruction.rtype.rs2]) , 32 - processor->R[instruction.rtype.rs2]);
                     processor->PC += 4;
 		    break;
                 default:
@@ -188,7 +188,12 @@ void execute_itype_except_load(Instruction instruction, Processor *processor) {
 	    processor->PC += 4;            
 	    break;
         case 0x2:
-	    processor->R[instruction.itype.rd] = (sign_extend_number(processor->R[instruction.itype.rs1], 5) < sign_extend_number(instruction.itype.imm, 12)) ? 1 : 0;
+	    // SLTI
+	    if ((int)processor->R[instruction.rtype.rs1] < (int)sign_extend_number(instruction.itype.imm, 12)) {
+		processor->R[instruction.rtype.rd] = 1;
+	    } else {
+	        processor->R[instruction.rtype.rd] = 0;
+	    }
 	    processor->PC += 4;            
 	    break;
         case 0x4:
