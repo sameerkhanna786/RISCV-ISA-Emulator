@@ -130,12 +130,12 @@ void execute_rtype(Instruction instruction, Processor *processor) {
             switch (instruction.rtype.funct7) {
                 case 0x0:
                     // SRL 
-		    processor->R[instruction.rtype.rd] = (sign_extend_number(processor->R[instruction.rtype.rs1], 5) >> sign_extend_number(processor->R[instruction.rtype.rs2], 5));
+		    processor->R[instruction.rtype.rd] = (processor->R[instruction.rtype.rs1] >> processor->R[instruction.rtype.rs2]);
                     processor->PC += 4;
 		    break;     
                 case 0x20:
                     // SRA
-		    processor->R[instruction.rtype.rd] = sign_extend_number((sign_extend_number(processor->R[instruction.rtype.rs1], 5) >> sign_extend_number(processor->R[instruction.rtype.rs2], 5)) , 32 - sign_extend_number(processor->R[instruction.rtype.rs1], 5));
+		    processor->R[instruction.rtype.rd] = sign_extend_number((processor->R[instruction.rtype.rs1] >> processor->R[instruction.rtype.rs2]) , 32 - processor->R[instruction.rtype.rs1]);
                     processor->PC += 4;
 		    break;
                 default:
