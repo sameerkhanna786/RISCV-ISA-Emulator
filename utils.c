@@ -26,6 +26,23 @@ int sign_extend_number( unsigned int field, unsigned int n) {
     return a;
 }
 
+/* Sign extends the given field to a 64-bit integer where field is
+ * interpreted an n-bit integer. */ 
+int sign_extend_num( unsigned int field) {
+    int n = ceil(log(field)/log(2));
+    int a;
+    if (extract(field, n-1, n) == 0) {
+       a = field;
+    } else {
+    int value = 0;
+    for (int i = 0; i < 64-n; i++) {
+        value = value*2 + 1;
+    }
+    a = field + (value << n);
+    }
+    return a;
+}
+
 /* Unpacks the 32-bit machine code instruction given into the correct
  * type within the instruction struct */ 
 Instruction parse_instruction(uint32_t instruction_bits) {

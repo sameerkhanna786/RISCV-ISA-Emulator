@@ -4,7 +4,7 @@ CUNIT := -L/home/ff/cs61c/cunit/install/lib -I/home/ff/cs61c/cunit/install/inclu
 CFLAGS := -g -std=gnu99 -Wall
 
 
-ASM_TESTS := simple multiply random mytests mytest random_asm
+ASM_TESTS := mytest random multiply simple
 
 all: riscv part1 part2
 	@echo "=============All tests finished============="
@@ -28,6 +28,9 @@ part1: riscv $(addsuffix _disasm, $(ASM_TESTS))
 
 part2: riscv $(addsuffix _execute, $(ASM_TESTS))
 	@echo "-----------Execute Tests Complete-----------"
+
+unit-test:
+	gcc $(CFLAGS) -DTESTING -o unit-test part2_unit_test.c utils.c part1.c part2.c -l:libtestgen.a
 
 %_execute: riscvcode/code/%.input riscvcode/ref/%.solution riscv
 	@./riscv -r $< > riscvcode/out/$*.trace
