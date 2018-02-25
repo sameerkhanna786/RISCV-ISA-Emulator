@@ -93,7 +93,7 @@ void execute_rtype(Instruction instruction, Processor *processor) {
                     break;
                 case 0x1:
 		    //mulh
-		    tmp = ((int32_t)(processor->R[instruction.rtype.rs1])) * ((int32_t)(processor->R[instruction.rtype.rs2]));
+		    tmp = ((int64_t)(processor->R[instruction.rtype.rs1])) * ((int64_t)(processor->R[instruction.rtype.rs2]));
                     processor->R[instruction.rtype.rd] = (tmp>>32);
 		    processor->PC += 4;
                     break;
