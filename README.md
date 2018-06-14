@@ -9,12 +9,12 @@ The instruction set that the emulator handles is listed below.
 ![P1](https://github.com/sameerkhanna786/RISCV-ISA-Emulator/blob/master/Pictures/P1.png)
 ![P2](https://github.com/sameerkhanna786/RISCV-ISA-Emulator/blob/master/Pictures/P2.png)
 
-# Framework Code
+# Framework
 
-The framework code we've provided operates by doing the following.
+The framework provided operates by doing the following.
 
 It reads the program's machine code into the simulated memory (starting at address 0x01000). The program to "execute" is passed as a command line parameter. Each program is given 1 MiB of memory and is byte-addressable.
-It initializes all 32 RISC-V registers to 0 and sets the program counter (PC) to 0x01000. The only exceptions to the initial initializations are the stack pointer (set to 0xEFFFF) and the global pointer (set to 0x03000). In the context of our emulator, the global pointer will refer to the static portion of our memory. The registers and Program Counter are managed by the Processor struct defined in types.h.
+It initializes all 32 RISC-V registers to 0 and sets the program counter (PC) to 0x01000. The only exceptions to the initial initializations are the stack pointer (set to 0xEFFFF) and the global pointer (set to 0x03000). In the context of the emulator, the global pointer will refer to the static portion of our memory. The registers and Program Counter are managed by the Processor struct defined in types.h.
 It sets flags that govern how the program interacts with the user. Depending on the options specified on the command line, the simulator will either show a dissassembly dump (-d) of the program on the command line, or it will execute the program. More information on the command line options is below.
 It then enters the main simulation loop, which simply executes a single instruction repeatedly until the simulation is complete. Executing an instruction performs the following tasks:
 
