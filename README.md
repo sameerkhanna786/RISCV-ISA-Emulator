@@ -25,6 +25,7 @@ The framework supports a handful of command-line options:
 
 -i runs the simulator in interactive mode, in which the simulator executes an instruction each time the Enter key is pressed. The disassembly of each executed instruction is printed.
 -t runs the simulator in tracing mode, in which each instruction executed is printed.
--r instructs the simulator to print the contents of all 32 registers after each instruction is executed. This option is most useful when 
+-r instructs the simulator to print the contents of all 32 registers after each instruction is executed. This option is most useful when combined with the -i flag.
+-d instructs the simulator to disassemble the entire program, then quit before executing.
 
 
